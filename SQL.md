@@ -7,6 +7,8 @@ sudo service mysql restart
 CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost'; (Skapar konto)
 
+sudo service mysql restart;
+
 mysql -u username -p (Logga in i databasen)
 
 use mysql 
@@ -18,6 +20,16 @@ show tables (En jättelång lista)
 SELECT * from user; (Visar innehåll i databasen)
 
 create database [namn] (Skapar en databas)
+
+CREATE TABLE namn (id)...;
+
+ALTER TABLE namn ADD/MODIFY/DROP namn (modifiering); (Skapar/ändrar/tar bort något i det table man anger)
+
+insert into dbnamn 
+
+select * from TABLE (väljer alla fält från tabellen)
+
+delete from (dbnamn) WHERE id = 5; (Tar bort en row från table med id 5)
 
 ### Exempel på databas-skapande
 
@@ -32,6 +44,14 @@ INSERT INTO users (name) VALUES ('Joe Hanzen TM'); (Sätter värde på users nam
 ## QoL
 grep mysql (Hämtar alla mysql kommandon som använts)
 ![Kommando-nummer] (Hämtar kommandot)
+
+## REST (vet inte riktigt vad det är)
+BASE URL /tasks
+GET / - Get all tasks
+POST / - Create a new task
+GET /:id -Get task by id
+PUT /:id - Update a tasky by id
+DELETE /:id - Delete a task by id
 
 # Anteckningar - Databas
 
