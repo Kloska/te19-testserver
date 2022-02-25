@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
     await pool.promise()
         .query('SELECT * FROM tasks')
         .then(([rows, fields]) => {
-            res.render('tasks.njk',{
+            res.render('tasks.njk', {
                 tasks: rows,
                 title: "Tasks",
                 layout: "layout.njk"
@@ -69,19 +69,21 @@ router.post('/', async (req, res, next) => {
     await pool.promise()
         .query('INSERT INTO tasks (task) VALUES (?)', [task])
         .then((response) => {
-            res.json({
-                task: {
-                    data: response
-                }
-            });
+            console.log(response[0].affectedRows);
+            if (response[0].affectedRows == 1) {
+                res.redirect('/tasks');
+            } else {
+                res(400)
+            }
+        })    
+
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            tasks: {
+                error: 'Error getting tasks'
+            }
         })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                tasks: {
-                    error: 'Error getting tasks'
-                }
-            })
-        });
+    });
 });
 module.exports = router;

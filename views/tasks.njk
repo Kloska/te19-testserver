@@ -1,9 +1,26 @@
 {% extends layout %}
 {% block  content %}
-  <div>
-      {% for task in tasks %}
-          <h2>{{task.task}}</h2>
-      {% endfor %}
-  </div>
-
-{% endblock %}
+  <main class="container">
+    <div>
+      <form action="/tasks" method="post">
+        <label for="task" class="form-labe">Task</label>
+          <div class="input-group mb-3">
+            <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Submit task</button>
+            <input
+              class="form-control"
+              type="text"
+              name="name"
+              id="task"              
+              placeholder="Fill in your task"
+              aria-label="Example text with button addon"
+              aria-describedby="button-addon1"
+              required></div>
+          </form>
+        </div>
+        <div>
+          {% for task in tasks %}
+            <h2>{{ task.task }}</h2>
+          {% endfor %}
+        </div>
+      </main>
+    {% endblock %}
