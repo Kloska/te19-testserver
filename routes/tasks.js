@@ -10,6 +10,32 @@ const pool = require('../database');
     PUT /:id - Update a task by id
     DELETE /:id - Delete a task by id
 */
+
+router.get('/', async (req, res, next) => {
+    const flash = req.session.flash;
+    console.log(flash);
+    req.session.flash = null;
+    await pool.promise()
+        .query('SELECT * FROM tasks')
+        .then(([rows, fields]) => {
+            res.render('tasks.njk', {
+                tasks: rows,
+                title: "Tasks",
+                layout: "layout.njk"
+
+            })
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                tasks: {
+                    error: 'Error getting tasks'
+                }
+            })
+        });
+});
+
+
 router.get('/', async (req, res, next) => {
     await pool.promise()
         .query('SELECT * FROM tasks')
